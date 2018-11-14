@@ -1,0 +1,274 @@
+﻿using System.Collections.Generic;
+
+namespace Slib.Graph
+{
+     public class DiGraph
+    {
+        private int m_V;
+        private int m_E;
+        private List<int>[] m_Adj;
+        public DiGraph(int V)
+        {
+            m_V = V;
+            m_E = 0;
+            m_Adj = new List<int>[V];
+            for (int v = 0; v < V; v++)
+            {
+                m_Adj[v] = new List<int>();
+            }
+        }
+        public int V() { return m_V; }
+        public int E() { return m_E; }
+        public void addEdge(int v, int w)
+        {
+            m_Adj[v].Add(w);
+            m_E++;
+        }
+        public List<int> Adj(int v) { return m_Adj[v]; }
+        public DiGraph reverse()
+        {
+            DiGraph R = new DiGraph(m_V);
+            for (int v = 0; v < m_V; v++)
+            {
+                foreach (int w in Adj(v))
+                {
+                    R.addEdge(w, v);
+                }
+            }
+            return R;
+        }
+    }
+    public class DirectedDFS//可达性
+    {
+        private bool[] m_Marked;
+        public DirectedDFS(DiGraph g, int s)
+        {
+            m_Marked = new bool[g.V()];
+            dfs(g, s);
+        }
+
+        public DirectedDFS(DiGraph g, List<int> sources)
+        {
+
+            m_Marked = new bool[g.V()];
+            foreach (int s in sources)
+            {
+                if (!m_Marked[s])
+                {
+                    dfs(g, s);
+                }
+            }
+        }
+
+        private void dfs(DiGraph g, int v)
+        {
+            m_Marked[v] = true;
+            foreach (int w in g.Adj(v))
+            {
+                if (!m_Marked[w])
+                {
+                    dfs(g, w);
+                }
+            }
+        }
+
+        public bool marked(int v)
+        {
+            return m_Marked[v];
+        }
+    }
+
+    public class DirectedCycle
+    {
+        private bool[] m_Marked;
+        private int[] m_EdgeTo;
+        private Stack<int> m_Cycle;//有向环中的所有顶点
+        private bool[] m_OnStack;//递归调用的栈上的所有顶点
+
+        public DirectedCycle(DiGraph g)
+        {
+            m_OnStack = new bool[g.V()];
+            m_EdgeTo = new int[g.V()];
+            m_Marked = new bool[g.V()];
+            for (int v = 0; v < g.V(); v++)
+            {
+                if (!m_Marked[v])
+                {
+                    dfs(g, v);
+                }
+            }
+        }
+
+        private void dfs(DiGraph g, int v)
+        {
+            m_OnStack[v] = true;
+            m_Marked[v] = true;
+            foreach (int w in g.Adj(v))
+            {
+                if (this.hasCycle())
+                    return;
+                else if (!m_Marked[w])
+                {
+                    m_EdgeTo[w] = v;
+                    dfs(g, w);
+                }
+                else if (m_OnStack[w])
+                {
+                    m_Cycle = new Stack<int>();
+                    for (int i = v; i != w; i = m_EdgeTo[i])
+                    {
+                        m_Cycle.Push(i);
+                    }
+                    m_Cycle.Push(w);
+                    m_Cycle.Push(v);
+                }
+            }
+            m_OnStack[v] = false;
+        }
+
+        public bool hasCycle()
+        {
+            return m_Cycle != null;
+        }
+
+        public List<int> cycle()
+        {
+            return new List<int>(m_Cycle.ToArray());
+        }
+    }
+    public class DepthFirstOrder
+    {
+        private bool[] m_Marked;
+        private Queue<int> m_Pre;//所有顶点的前序排列
+        private Queue<int> m_Post;//所有顶点的后序排列
+        private Stack<int> m_ReversePost;//所有顶点的逆后序排列
+
+        public DepthFirstOrder(DiGraph g)
+        {
+            m_Pre = new Queue<int>();
+            m_Post = new Queue<int>();
+            m_ReversePost = new Stack<int>();
+            m_Marked = new bool[g.V()];
+
+            for (int v = 0; v < g.V(); v++)
+            {
+                if (!m_Marked[v])
+                {
+                    dfs(g, v);
+                }
+            }
+        }
+
+        private void dfs(DiGraph g, int v)
+        {
+            m_Pre.Enqueue(v);
+            m_Marked[v] = true;
+            foreach (int w in g.Adj(v))
+            {
+                if (!m_Marked[w])
+                {
+                    dfs(g, w);
+                }
+            }
+            m_Post.Enqueue(v);
+            m_ReversePost.Push(v);
+        }
+        public List<int> pre()
+        {
+            return new List<int>(m_Pre.ToArray());
+        }
+
+        public List<int> post()
+        {
+            return new List<int>(m_Post.ToArray());
+        }
+
+        public List<int> reversePost()
+        {
+            return new List<int>(m_ReversePost.ToArray());
+        }
+    }
+
+    public class Topolgical
+    {
+        private List<int> m_Order;//顶点的拓扑排序
+        public Topolgical(DiGraph g)
+        {
+            DirectedCycle cycle = new DirectedCycle(g);
+            if (!cycle.hasCycle())
+            {
+                DepthFirstOrder dfs = new DepthFirstOrder(g);
+                m_Order = dfs.reversePost();
+            }
+        }
+        public List<int> order()
+        {
+            return m_Order;
+        }
+        public bool isDAG()//是否有向无环图
+        {
+            return m_Order != null;
+        }
+    }
+
+    public class KosarajuSCC
+    {
+        private bool[] m_Marked;
+        private int[] m_Id;//强连通分量的标识符
+        private int m_Count;//强连通分量的数量
+
+        public KosarajuSCC(DiGraph g)
+        {
+            m_Marked = new bool[g.V()];
+            m_Id = new int[g.V()];
+            DepthFirstOrder order = new DepthFirstOrder(g.reverse());
+            foreach (int s in order.reversePost())
+            {
+                if (!m_Marked[s])
+                {
+                    dfs(g, s);
+                    m_Count++;
+                }
+            }
+        }
+        private void dfs(DiGraph g, int v)
+        {
+            m_Marked[v] = true;
+            m_Id[v] = m_Count;
+            foreach (int w in g.Adj(v))
+            {
+                if (!m_Marked[w])
+                {
+                    dfs(g, w);
+                }
+            }
+        }
+        public bool stronglyConnnected(int v, int w)
+        {
+            return m_Id[v] == m_Id[w];
+        }
+
+        public int count()
+        {
+            return m_Count;
+        }
+    }
+
+    public class TransitiveClosure
+    {
+        private DirectedDFS[] m_All;
+        public TransitiveClosure(DiGraph g)
+        {
+            m_All = new DirectedDFS[g.V()];
+            for (int v = 0; v < g.V(); v++)
+            {
+                m_All[v] = new DirectedDFS(g, v);
+            }
+        }
+
+        public bool reachable(int v, int w)
+        {
+            return m_All[v].marked(w);
+        }
+    }
+}
