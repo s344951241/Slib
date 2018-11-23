@@ -6,24 +6,20 @@ using System.Threading.Tasks;
 
 namespace Slib.Search
 {
-    public class BinarySearch
+    public class BinarySearch<T> where T:IComparable
     {
-        private BinarySearch()
-        {
-
-        }
-        public static int indexof(int[] a, int key)
+        public static int Indexof(IList<T> a, int key)
         {
             int lo = 0;
-            int hi = a.Length - 1;
+            int hi = a.Count - 1;
             while (lo < hi)
             {
                 int mid = lo + (hi - lo) / 2;
-                if (key < a[mid])
+                if (key.CompareTo(a[mid]) < 0)
                 {
                     hi = mid - 1;
                 }
-                else if (key > a[mid])
+                else if (key.CompareTo(a[mid]) > 0)
                 {
                     lo = mid + 1;
                 }
@@ -33,11 +29,6 @@ namespace Slib.Search
                 }
             }
             return -1;
-        }
-
-        public static int rand(int key, int[] a)
-        {
-            return indexof(a, key);
         }
     }
 

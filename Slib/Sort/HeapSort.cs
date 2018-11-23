@@ -8,18 +8,18 @@ namespace Slib.Sort
 {
     public class HeapSort<T> where T: IComparable
     {
-        public static void sort(T[] arr)
+        public static void sort(IList<T> arr)
         {
             //1.构建大顶堆
-            for (int i = arr.Length / 2 - 1; i >= 0; i--)
+            for (int i = arr.Count / 2 - 1; i >= 0; i--)
             {
                 //从第一个非叶子结点从下至上，从右至左调整结构
-                adjustHeap(arr, i, arr.Length);
+                adjustHeap(arr, i, arr.Count);
             }
             //2.调整堆结构+交换堆顶元素与末尾元素
-            for (int j = arr.Length - 1; j > 0; j--)
+            for (int j = arr.Count - 1; j > 0; j--)
             {
-                swap(arr, 0, j);//将堆顶元素与末尾元素进行交换
+                arr.Swap(0, j);//将堆顶元素与末尾元素进行交换
                 adjustHeap(arr, 0, j);//重新对堆进行调整
             }
         }
@@ -30,7 +30,7 @@ namespace Slib.Sort
           * @param i
           * @param length
          */
-        private static void adjustHeap(T[] arr, int i, int length)
+        private static void adjustHeap(IList<T> arr, int i, int length)
         {
             T temp = arr[i];//先取出当前元素i
             int k = i * 2 + 1;//从i结点的左子结点开始，也就是2i+1处开始
@@ -51,13 +51,6 @@ namespace Slib.Sort
                 }
             }
             arr[i] = temp;//将temp值放到最终的位置
-        }
-
-        private static void swap(T[] arr, int a, int b)
-        {
-            T temp = arr[a];
-            arr[a] = arr[b];
-            arr[b] = temp;
         }
     }
 }

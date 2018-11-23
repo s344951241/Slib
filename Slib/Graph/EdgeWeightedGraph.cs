@@ -1,4 +1,5 @@
 ﻿using Slib.PriorityQueue;
+using Slib.Search;
 using System;
 using System.Collections.Generic;
 
@@ -235,7 +236,44 @@ namespace Slib.Graph
             }
             return weight;
         }
+    }
 
+    public class KruskalMST
+    {
+        private Queue<Edge> _mst;
+        private double _weight;
+        public KruskalMST(EdgeWeightedGraph g)
+        {
+            _mst = new Queue<Edge>();
+            MinPQ<Edge> pq = new MinPQ<Edge>(g.edges().ToArray());
+            foreach (Edge e in g.edges())
+            {
+                pq.insert(e);
+            }
+            UnionFind uf = new UnionFind(g.V());
+            while (!pq.isEmpty() && _mst.Count < g.V() - 1)
+            {
+                Edge e = pq.delMin();
+                int v = e.either();
+                int w = e.other(v);
+                if (uf.Connected(v, w))
+                {
+                    continue;
+                }
+                uf.Union(v, w);
+                _mst.Enqueue(e);
+                _weight += e.weight();
+            }
+        }
 
+        public IEnumerable<Edge> edges()
+        {
+            return _mst;
+        }
+
+        public double weight()
+        {
+            return _weight;
+        }
     }
 }

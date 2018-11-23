@@ -37,6 +37,30 @@ namespace Slib.Graph
             }
             return R;
         }
+        public int inDegree(int index, out int value)
+        {
+            int num = 0;
+            int result = -1;
+            for (int i = 0; i < m_V; i++)
+            {
+                for (int j = 0; j < m_Adj[i].Count; j++)
+                {
+                    if (index == m_Adj[i][j])
+                    {
+                        num++;
+                        result = i;
+                    }
+                }
+                
+            }
+            value = result;
+            return num;
+        }
+
+        public int outDegree(int index)
+        {
+            return m_Adj[index].Count;
+        }
     }
     public class DirectedDFS//可达性
     {
@@ -270,5 +294,92 @@ namespace Slib.Graph
         {
             return m_All[v].marked(w);
         }
+    }
+    //符号图
+    public class SymbolDiGraph
+    {
+        private Dictionary<string, int> m_dict;
+        private string[] m_keys;
+        private DiGraph m_g;
+
+        public SymbolDiGraph(List<List<string>> lists)
+        {
+            m_dict = new Dictionary<string, int>();
+            foreach (List<string> list in lists)
+            {
+                foreach (string key in list)
+                {
+                    if (!m_dict.ContainsKey(key))
+                    {
+                        m_dict.Add(key, m_dict.Count);
+                    }
+
+                }
+            }
+
+            m_keys = new string[m_dict.Count];
+            foreach (string name in m_dict.Keys)
+            {
+                m_keys[m_dict[name]] = name;
+            }
+            m_g = new DiGraph(m_dict.Count);
+            foreach (List<string> list in lists)
+            {
+                int v = m_dict[list[0]];
+                for (int i = 1; i < list.Count; i++)
+                {
+                    int w = m_dict[list[i]];
+                    m_g.addEdge(v, w);
+                }
+            }
+        }
+
+        public SymbolDiGraph(string[] strs)
+        {
+            m_dict = new Dictionary<string, int>();
+
+            for (int i = 0; i < strs.Length; i++)
+            {
+                if (!m_dict.ContainsKey(strs[i]))
+                {
+                    m_dict.Add(strs[i], m_dict.Count);
+                }
+            }
+
+            m_keys = new string[m_dict.Count];
+            foreach (string name in m_dict.Keys)
+            {
+                m_keys[m_dict[name]] = name;
+            }
+
+            m_g = new DiGraph(m_dict.Count);
+        }
+
+
+        public void addEdge(string a, string b)
+        {
+            m_g.addEdge(m_dict[a], m_dict[b]);
+        }
+
+        public bool contains(string s)
+        {
+            return m_dict.ContainsKey(s);
+        }
+
+        public int index(string s)
+        {
+            return m_dict[s];
+        }
+
+        public string name(int v)
+        {
+            return m_keys[v];
+        }
+
+        public DiGraph G()
+        {
+            return m_g;
+        }
+
     }
 }
