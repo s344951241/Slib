@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Slib;
+using Slib.Design;
 
 namespace ConsoleApp1
 {
@@ -91,8 +92,12 @@ namespace ConsoleApp1
             //}
             Console.WriteLine("111111");
             int[] arr = new int[] { 6, 4, 5, 3, 1, 2 };
-            QuickSort<int>.sort(arr);
+            MergeSort<int>.sort(arr);
             Console.WriteLine(arr.Print<int>());
+
+
+            FacadeModel.invoke();
+
             Console.ReadKey();
 
         }

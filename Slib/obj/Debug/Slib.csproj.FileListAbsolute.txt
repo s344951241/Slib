@@ -13,3 +13,4 @@ E:\work\Slib\Slib\Slib.dll
 E:\work\Slib\Slib\Slib.pdb
 E:\work\Slib\Slib\bin\Debug\Slib.dll
 E:\work\Slib\Slib\bin\Debug\Slib.pdb
+E:\work\Slib\Slib\obj\Debug\Slib.csprojResolveAssemblyReference.cache

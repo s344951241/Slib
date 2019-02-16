@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\Adapter.cs" />
+    <Compile Include="Design\Bridge.cs" />
+    <Compile Include="Design\Builder.cs" />
+    <Compile Include="Design\Composite.cs" />
+    <Compile Include="Design\Decorator.cs" />
+    <Compile Include="Design\Facade.cs" />
+    <Compile Include="Design\Factory.cs" />
+    <Compile Include="Design\Filter.cs" />
+    <Compile Include="Design\Prototype.cs" />
     <Compile Include="Design\Singleton.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Graph\DiGraph.cs" />
@@ -52,8 +61,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\BinarySearch.cs" />
     <Compile Include="Search\UnionFind.cs" />
+    <Compile Include="Sort\BubbleSort.cs" />
     <Compile Include="Sort\HeapSort.cs" />
+    <Compile Include="Sort\InsertSort.cs" />
+    <Compile Include="Sort\MergeSort.cs" />
     <Compile Include="Sort\QuickSort.cs" />
+    <Compile Include="Sort\SelectSort.cs" />
+    <Compile Include="Sort\ShellSort.cs" />
+    <Compile Include="Sort\SortUtil.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

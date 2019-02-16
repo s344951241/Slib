@@ -10,7 +10,7 @@ namespace Slib
     {
         public static void Swap<T>(this IList<T> iter, int a, int b)
         {
-            if (iter.Count > a && iter.Count >b)
+            if (iter.Count > a && iter.Count > b)
             {
                 T t = iter[a];
                 iter[a] = iter[b];
