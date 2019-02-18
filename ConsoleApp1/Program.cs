@@ -96,7 +96,7 @@ namespace ConsoleApp1
             Console.WriteLine(arr.Print<int>());
 
 
-            FacadeModel.invoke();
+            ObserverModel.invoke();
 
             Console.ReadKey();
 
