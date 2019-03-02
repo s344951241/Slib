@@ -55,10 +55,15 @@
     <Compile Include="Design\Iterator.cs" />
     <Compile Include="Design\Mediator.cs" />
     <Compile Include="Design\Memento.cs" />
+    <Compile Include="Design\NullPattern.cs" />
     <Compile Include="Design\Observer.cs" />
     <Compile Include="Design\Prototype.cs" />
     <Compile Include="Design\Proxy.cs" />
     <Compile Include="Design\Singleton.cs" />
+    <Compile Include="Design\State.cs" />
+    <Compile Include="Design\Strategy.cs" />
+    <Compile Include="Design\Template.cs" />
+    <Compile Include="Design\Visitor.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Graph\DiGraph.cs" />
     <Compile Include="Graph\EdgeWeightedDigraph.cs" />

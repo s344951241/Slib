@@ -96,7 +96,7 @@ namespace ConsoleApp1
             Console.WriteLine(arr.Print<int>());
 
 
-            ObserverModel.invoke();
+            NullPattern.Invoke();
 
             Console.ReadKey();
 
