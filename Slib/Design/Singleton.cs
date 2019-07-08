@@ -1,6 +1,9 @@
-﻿namespace Slib.Design
+﻿#define NEW
+using System;
+
+namespace Slib.Design
 {
-    public class Singleton<T> where T : new()
+    public sealed class Singleton<T> where T : new()
     {
         private static readonly object _lock = new object();
         private static T _instance;
@@ -11,12 +14,14 @@
         }
         public static bool Exists
         {
+            
             get {
                 return _instance !=null;
             }
         }
         private static T Instance
         {
+            //double check
             get {
                 if (_instance == null)
                 {
@@ -36,5 +41,35 @@
         {
             return Instance;
         }
+    }
+
+    public sealed class SingleTon
+    {
+#if OLD
+        private static readonly SingleTon instance = new SingleTon();
+
+        static SingleTon()
+        {
+
+        }
+
+        private SingleTon()
+        {
+
+        }
+
+        public static SingleTon Instance {
+            get {
+                return instance;
+            }
+        }
+#elif NEW
+        private static readonly Lazy<SingleTon> lazy = new Lazy<SingleTon>(() => new SingleTon());
+        public static SingleTon Instance { get { return lazy.Value; } }
+        private SingleTon()
+        {
+
+        }
+#endif
     }
 }

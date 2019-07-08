@@ -3,8 +3,8 @@ E:\work\Slib\ConsoleApp1\bin\Debug\ConsoleApp1.exe
 E:\work\Slib\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
 E:\work\Slib\ConsoleApp1\bin\Debug\Slib.dll
 E:\work\Slib\ConsoleApp1\bin\Debug\Slib.pdb
-E:\work\Slib\ConsoleApp1\obj\Debug\Test.csprojResolveAssemblyReference.cache
 E:\work\Slib\ConsoleApp1\obj\Debug\Test.csproj.CoreCompileInputs.cache
 E:\work\Slib\ConsoleApp1\obj\Debug\Test.csproj.CopyComplete
 E:\work\Slib\ConsoleApp1\obj\Debug\ConsoleApp1.exe
 E:\work\Slib\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
+E:\work\Slib\ConsoleApp1\obj\Debug\Test.csprojAssemblyReference.cache

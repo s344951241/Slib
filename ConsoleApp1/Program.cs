@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Slib;
 using Slib.Design;
+using Slib.Stack;
+using Slib.Tree;
 
 namespace ConsoleApp1
 {
@@ -98,8 +100,48 @@ namespace ConsoleApp1
 
             NullPattern.Invoke();
 
-            Console.ReadKey();
 
+            MinPQ<int> minPQ = new MinPQ<int>();
+            minPQ.insert(1);
+            minPQ.insert(2);
+            minPQ.insert(4);
+            minPQ.insert(3);
+
+            foreach(var item in minPQ)
+            {
+                Console.WriteLine(item);
+            }
+
+
+            DoubleStack<int> Dstack = new DoubleStack<int>(3);
+            Dstack.Push(1,1);
+            Dstack.Push(3, 2);
+            Dstack.Push(4, 2);
+            Dstack.Push(2, 1);
+
+            Console.WriteLine(Dstack.Pop(1));
+            Console.WriteLine(Dstack.Pop(2));
+            Console.WriteLine(Dstack.Pop(1));
+
+
+            BiTree<string> g = new BiTree<string>("G");
+            BiTree<string> h = new BiTree<string>("H");
+            BiTree<string> d = new BiTree<string>("D", g, h);
+            BiTree<string> b = new BiTree<string>("B", d, null);
+            BiTree<string> i = new BiTree<string>("I");
+            BiTree<string> e = new BiTree<string>("E", null, i);
+            BiTree<string> f = new BiTree<string>("F");
+            BiTree<string> c = new BiTree<string>("C", e, f);
+            BiTree<string> root = new BiTree<string>("A", b, c);
+
+            root.PostOrderTraverse(delegate (BiTree<string> tree)
+            {
+                Console.Write(tree.Data);
+            });
+
+         
+
+            Console.ReadKey();
         }
     }
 }

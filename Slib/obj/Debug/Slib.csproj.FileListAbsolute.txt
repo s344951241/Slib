@@ -6,11 +6,11 @@ E:\Slib\Slib\obj\Debug\Slib.pdb
 D:\workspace\sl\slGame\Assets\Plugins\dll\Slib.dll
 D:\workspace\sl\slGame\Assets\Plugins\dll\Slib.pdb
 E:\Slib\Slib\obj\Debug\Slib.csprojResolveAssemblyReference.cache
-E:\work\Slib\Slib\obj\Debug\Slib.csproj.CoreCompileInputs.cache
-E:\work\Slib\Slib\obj\Debug\Slib.dll
-E:\work\Slib\Slib\obj\Debug\Slib.pdb
 E:\work\Slib\Slib\Slib.dll
 E:\work\Slib\Slib\Slib.pdb
 E:\work\Slib\Slib\bin\Debug\Slib.dll
 E:\work\Slib\Slib\bin\Debug\Slib.pdb
-E:\work\Slib\Slib\obj\Debug\Slib.csprojResolveAssemblyReference.cache
+E:\work\Slib\Slib\obj\Debug\Slib.csprojAssemblyReference.cache
+E:\work\Slib\Slib\obj\Debug\Slib.csproj.CoreCompileInputs.cache
+E:\work\Slib\Slib\obj\Debug\Slib.dll
+E:\work\Slib\Slib\obj\Debug\Slib.pdb
